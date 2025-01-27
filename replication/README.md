@@ -11,10 +11,10 @@ Then, prepare `temp/` by copying the following temporary data files:
 
 Then, run:
 ```terminal
-python make_figures.py 
+python replication/make_figures.py 
 ```
 and 
 ```terminal 
-python make_tables.py 
+python replication/make_tables.py 
 ```
 The code will output .tex and .png files in `output/`.
