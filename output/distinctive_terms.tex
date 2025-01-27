@@ -1,0 +1,56 @@
+\begin{table}[H]
+\centering
+\caption{Most Distinctive Words (TF-IDF) for Top 20 Occupations}
+\vspace{5mm}
+\renewcommand{\arraystretch}{0.9}
+\begin{tabular}{|l|p{12cm}|}
+\hline
+\textbf{Occupation} & \textbf{Distinctive Terms} \\
+\hline
+engineer & valve, steam, water, cylinder, air, shaft, wheel, lever, piston, pipe \\
+\hline
+manufacturer & manufacturer, plate, frame, spring, material, tube, metal, lever, ends, shaft \\
+\hline
+gentleman & gentleman, water, air, wheel, john, plate, letters, tube, henry, material \\
+\hline
+patent agent & lake, water, shaft, abroad, acid, plate, air, communication, wheel, lever \\
+\hline
+civil engineer & water, air, steam, valve, cylinder, engineer, william, shaft, pipe, wheel \\
+\hline
+merchant & water, air, material, plate, wheel, tube, frame, spring, metal, vessel \\
+\hline
+mechanical engineer & valve, shaft, wheel, mechanical, lever, steam, cylinder, water, plate, piston \\
+\hline
+machinist & shaft, lever, wheel, machine, roller, rollers, plate, bar, motion, frame \\
+\hline
+electrical engineer & electrical, circuit, electric, current, armature, switch, contact, lamp, magnet, wire \\
+\hline
+chemist & acid, solution, water, process, soda, gas, mixture, lime, manufacture, liquid \\
+\hline
+manager & shaft, lever, wheel, machine, roller, rollers, plate, yarn, bar, john \\
+\hline
+machine maker & machine, lever, shaft, rollers, roller, wheel, motion, yarn, spindle, levers \\
+\hline
+chartered patent agent & acid, water, solution, shaft, air, lever, wheel, agent, plate, material \\
+\hline
+mechanic & lever, shaft, wheel, bar, machine, spring, frame, plate, roller, spindle \\
+\hline
+electrician & circuit, current, electric, armature, battery, contact, wire, magnet, carbon, electro \\
+\hline
+consulting engineer & robert, water, lake, steam, valve, air, william, cylinder, shaft, tube \\
+\hline
+manufacturing chemist & acid, solution, soda, water, lime, manufacture, gas, process, mixture, iron \\
+\hline
+esquire & letters, water, john, year, shall, time, great, seal, majesty, assigns \\
+\hline
+inventor & shaft, frame, wheel, spring, plate, bar, ends, lever, tube, upper \\
+\hline
+architect & water, air, frame, pipe, material, fire, metal, plate, iron, glass \\
+\hline
+\end{tabular}
+\caption*{\textit{Note}: Table displays the most distinctive words by TF-IDF score in the full texts of patents associated with a given occupation. Occupations are standardized using a series of rules: we drop plural mentions of
+occupations, and group together common abbreviations for `gentleman' and `esquire'. We then take the modal
+occupation of inventors (or if there does not exist a mode for a particular inventor, we assign a random
+occupation). TF-IDF scores are calculated using the \texttt{scikit-learn} TfidfVectorizer with the maximum number of features limited to 1,000. We restrict to words that are at least 3 letters in length, appear in at least 5 patents, and appear in at most 70\% of patents.}
+\label{table:distinctive_terms}
+\end{table}
