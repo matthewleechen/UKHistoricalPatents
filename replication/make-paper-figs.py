@@ -1,5 +1,5 @@
 """
-Generate main figures for the paper.
+Generate main figures for the 300 Years of British Patents paper.
 """
 import matplotlib.pyplot as plt
 import seaborn as sns
@@ -15,12 +15,16 @@ from utils import load_base_datasets, load_kpst_scores, process_patent_inventors
 random.seed(42)
 np.random.seed(42)
 
+
+
 def load_data():
     """load required datasets"""
     dataset_all_years, dataset_all_entities = load_base_datasets()
     entities_df = process_patent_inventors(dataset_all_entities)
     kpst_scores = load_kpst_scores()
     return dataset_all_years, dataset_all_entities, entities_df, kpst_scores
+
+
 
 def generate_figure_2(dataset_all_years, entities_df):
     """create figure 2: patents and inventors over time"""
@@ -44,7 +48,7 @@ def generate_figure_2(dataset_all_years, entities_df):
     plt.ylabel('Number of Patents', fontsize=10)
     plt.xticks(rotation=45)
     plt.tight_layout()
-    plt.savefig("output/fig1a_patent_counts_levels.png", dpi=300, bbox_inches='tight')
+    plt.savefig("output/patent_counts_levels.png", dpi=300, bbox_inches='tight')
     plt.close()
 
     # plot patent counts (log)
@@ -59,7 +63,7 @@ def generate_figure_2(dataset_all_years, entities_df):
     plt.ylabel('Log Number of Patents', fontsize=10)
     plt.xticks(rotation=45)
     plt.tight_layout()
-    plt.savefig("output/fig1b_patent_counts_log.png", dpi=300, bbox_inches='tight')
+    plt.savefig("output/patent_counts_log.png", dpi=300, bbox_inches='tight')
     plt.close()
 
     # plot inventor cohorts (levels) 
@@ -71,7 +75,7 @@ def generate_figure_2(dataset_all_years, entities_df):
     plt.ylabel('Number of Inventors', fontsize=10)
     plt.xticks(rotation=45)
     plt.tight_layout()
-    plt.savefig("output/fig1c_inventor_cohorts_levels.png", dpi=300, bbox_inches='tight')
+    plt.savefig("output/inventor_cohorts_levels.png", dpi=300, bbox_inches='tight')
     plt.close()
 
     # plot inventor cohorts (log)
@@ -86,8 +90,12 @@ def generate_figure_2(dataset_all_years, entities_df):
     plt.ylabel('Log Number of Inventors', fontsize=10)
     plt.xticks(rotation=45)
     plt.tight_layout()
-    plt.savefig("output/fig1d_inventor_cohorts_log.png", dpi=300, bbox_inches='tight')
+    plt.savefig("output/inventor_cohorts_log.png", dpi=300, bbox_inches='tight')
     plt.close()
+
+
+
+
 
 def generate_table_1(entities_df):
     """create table 1: top occupations by period"""
@@ -161,8 +169,12 @@ def generate_table_1(entities_df):
 \end{table}'''
 
     # save table
-    with open('output/table1_occupations_total.tex', 'w') as f:
+    with open('output/occupations_total.tex', 'w') as f:
         f.write(latex_content)
+
+
+
+
 
 def generate_figure_3(dataset_all_years):
     """create figure 3: patent classes analysis"""
@@ -214,9 +226,13 @@ def generate_figure_3(dataset_all_years):
             ax.text(percent + 0.5, i, f"{percent:.1f}%", va='center', fontsize=10)
 
         plt.tight_layout()
-        plt.savefig(f"output/fig2_{subset_name}_patent_classes.png", 
+        plt.savefig(f"output/top10_patent_classes_{subset_name}.png", 
                    dpi=300, bbox_inches='tight')
         plt.close()
+
+
+
+
 
 def generate_figure_4(dataset_all_entities):
     """create figure 4: geographic distribution analysis"""
@@ -271,9 +287,12 @@ def generate_figure_4(dataset_all_entities):
         ax.set_yticks([])
         plt.title(f'Patent Locations {start}-{end}')
         
-        plt.savefig(f'output/fig3_{start}_{end}_uk_patents.png', 
+        plt.savefig(f'output/uk_patents_{start}_{end}.png', 
                    dpi=300, bbox_inches='tight', facecolor='white')
         plt.close()
+
+
+
 
 
 def generate_figure_5(kpst_scores):
@@ -319,9 +338,12 @@ def generate_figure_5(kpst_scores):
         ax.tick_params(axis='x', rotation=45)
         
         plt.tight_layout()
-        plt.savefig(f'output/fig4_{horizon}_breakthrough_scores.png', 
+        plt.savefig(f'output/breakthrough_scores_{horizon}_BH5.png', 
                    dpi=300, bbox_inches='tight')
         plt.close()
+
+
+
 
 
 
@@ -348,6 +370,10 @@ def main():
     generate_figure_5(kpst_scores)
     
     print("Done! All main paper content generated.")
+
+
+
+
 
 if __name__ == "__main__":
     main()

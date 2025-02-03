@@ -22,12 +22,17 @@ nltk.download('stopwords', quiet=True)
 random.seed(42)
 np.random.seed(42)
 
+
+
 def load_data():
     """load all required datasets"""
     dataset_all_years, dataset_all_entities = load_base_datasets()
     entities_df = process_patent_inventors(dataset_all_entities)
     kpst_scores = load_kpst_scores()
     return dataset_all_years, dataset_all_entities, entities_df, kpst_scores
+
+
+
 
 def generate_table_b1(entities_df):
     """create table b1: distribution of patents per inventor"""
@@ -69,12 +74,15 @@ Total & {total:,} \\\\
 \\\\[-0.5em]
 \\hline
 \\end{{tabular}}
-\\caption*{{\\textit{{Note}}: Shows number of inventors by patent count across full sample period.}}
+\\caption*{{\\textit{{Note}}: Table displays the number of inventors from our full coverage period that patented 1, 2, 3, 4, and at least 5, inventions.}}
 \\end{{table}}"""
 
     # save table
-    with open('output/appendix_b1_patents_by_inventor.tex', 'w') as f:
+    with open('output/patents_by_inventor.tex', 'w') as f:
         f.write(latex_content)
+
+
+
 
 def generate_figure_b1(entities_df):
     """create figure b1: co-invention analysis plots"""
@@ -91,7 +99,7 @@ def generate_figure_b1(entities_df):
     plt.ylabel('Number of Co-invented Patents', fontsize=10)
     plt.xticks(rotation=45)
     plt.tight_layout()
-    plt.savefig("output/appendix_b1a_coinvention_count.png", dpi=300, bbox_inches='tight')
+    plt.savefig("output/coinvention_count.png", dpi=300, bbox_inches='tight')
     plt.close()
 
     # plot share of co-invented patents
@@ -101,8 +109,11 @@ def generate_figure_b1(entities_df):
     plt.ylabel('Share of Co-invented Patents (%)', fontsize=10)
     plt.xticks(rotation=45)
     plt.tight_layout()
-    plt.savefig("output/appendix_b1b_coinvention_share.png", dpi=300, bbox_inches='tight')
+    plt.savefig("output/coinvention_share.png", dpi=300, bbox_inches='tight')
     plt.close()
+
+
+
 
 def generate_table_b2(dataset_all_years, entities_df):
     """create table b2: most distinctive words by occupation"""
@@ -195,13 +206,19 @@ def generate_table_b2(dataset_all_years, entities_df):
 
     latex_content += r"""
 \end{tabular}
-\caption*{\textit{Note}: Shows most distinctive words by TF-IDF score in patents by occupation.}
+\caption*{\textit{Note}: Table displays the most distinctive words by TF-IDF score in the full texts of patents associated with a given occupation. Occupations are standardized using a series of rules: we drop plural mentions of
+occupations, and group together common abbreviations for `gentleman' and `esquire'. We then take the modal
+occupation of inventors (or if there does not exist a mode for a particular inventor, we assign a random
+occupation). TF-IDF scores are calculated using the \texttt{scikit-learn} TfidfVectorizer with the maximum number of features limited to 1,000. We restrict to words that are at least 3 letters in length, appear in at least 5 patents, and appear in at most 70\% of patents.}
 \label{table:distinctive_terms}
 \end{table}"""
 
     # save table
-    with open("output/appendix_b2_distinctive_terms.tex", "w") as f:
+    with open("output/distinctive_terms.tex", "w") as f:
         f.write(latex_content)
+
+
+
 
 def generate_figure_b2(dataset_all_entities):
     """create figure b2: communicated patents analysis"""
@@ -230,7 +247,7 @@ def generate_figure_b2(dataset_all_entities):
     plt.ylabel('Number of Communicated Patents', fontsize=10)
     plt.xticks(rotation=45)
     plt.tight_layout()
-    plt.savefig("output/appendix_b2a_communicated_count.png", dpi=300, bbox_inches='tight')
+    plt.savefig("output/communicated_count.png", dpi=300, bbox_inches='tight')
     plt.close()
 
     # plot shares
@@ -241,8 +258,10 @@ def generate_figure_b2(dataset_all_entities):
     plt.ylabel('Share of Communicated Patents (%)', fontsize=10)
     plt.xticks(rotation=45)
     plt.tight_layout()
-    plt.savefig("output/appendix_b2b_communicated_share.png", dpi=300, bbox_inches='tight')
+    plt.savefig("output/communicated_share.png", dpi=300, bbox_inches='tight')
     plt.close()
+
+
 
 
 def generate_figure_b3(dataset_all_entities):
@@ -336,7 +355,7 @@ def generate_figure_b3(dataset_all_entities):
     plt.ylabel('Average Number of Locations', fontsize=10)
     plt.xticks(rotation=45)
     plt.tight_layout()
-    plt.savefig('output/appendix_b3a_avg_locations.png', dpi=300, bbox_inches='tight')
+    plt.savefig('output/avg_num_locations.png', dpi=300, bbox_inches='tight')
     plt.close()
 
     # plot distances
@@ -346,8 +365,11 @@ def generate_figure_b3(dataset_all_entities):
     plt.ylabel('Average Maximum Distance (km)', fontsize=10)
     plt.xticks(rotation=45)
     plt.tight_layout()
-    plt.savefig('output/appendix_b3b_avg_distances.png', dpi=300, bbox_inches='tight')
+    plt.savefig('output/avg_max_distances.png', dpi=300, bbox_inches='tight')
     plt.close()
+
+
+
 
 def generate_table_b3(kpst_scores):
     """create table b3: breakthrough scores and quality measures regression"""
@@ -489,8 +511,10 @@ def generate_table_b3(kpst_scores):
 \\end{table}"""
     
     # save table
-    with open('output/appendix_b3_regression_results.tex', 'w') as f:
+    with open('output/regression_results_BCI.tex', 'w') as f:
         f.write(latex)
+
+
 
 
 
@@ -539,12 +563,13 @@ def generate_figure_b4(kpst_scores):
         plt.xlabel('Year')
         plt.ylabel('Patents per 1000 people')
         plt.grid(False)
-        plt.savefig(f'output/appendix_b4_{forward_horizon}.png', dpi=300, bbox_inches='tight')
+        plt.savefig(f'output/high_quality_{forward_horizon}.png', dpi=300, bbox_inches='tight')
         plt.close()
 
     # generate plots for each horizon
     for horizon, dataset in kpst_scores.items():
         process_dataset(dataset, population, horizon)
+
 
 
 
@@ -593,9 +618,19 @@ def generate_figure_b5(kpst_scores):
         plt.ylabel('Share of Patents (%)')
         plt.legend()
         plt.grid(False)
-        plt.savefig(f'output/appendix_b5_{reform_year}.png',
+        plt.savefig(f'output/patent_quality_median_{reform_year}.png',
                    dpi=300, bbox_inches='tight')
         plt.close()
+
+    reform_years = [1852, 1883]   
+    
+    # using fh10:
+    dataset_dict = kpst_scores['fh10']
+    
+    # generate plots for each reform year
+    for ry in reform_years:
+        analyze_quality(dataset_dict, ry, window=5)
+
 
 
 
@@ -671,8 +706,11 @@ breakthrough scores (residualized by year). Limited to occupations with ≥100 p
 \\end{table}"""
 
     # save table
-    with open("output/appendix_b4_overrep_occupations.tex", "w") as f:
+    with open("output/top_20_occupations_top_decile.tex", "w") as f:
         f.write(latex)
+
+
+
 
 def main():
     """generate all appendix tables and figures"""
@@ -682,33 +720,36 @@ def main():
     
     # generate content in order
     print("Generating Table B1: Patents per inventor...")
-    generate_table_b1(entities_df)
+    #generate_table_b1(entities_df)
     
     print("Generating Figure B1: Co-invention analysis...")
-    generate_figure_b1(entities_df)
+    #generate_figure_b1(entities_df)
     
     print("Generating Table B2: Distinctive words...")
-    generate_table_b2(dataset_all_years, entities_df)
+    #generate_table_b2(dataset_all_years, entities_df)
     
     print("Generating Figure B2: Communicated patents...")
-    generate_figure_b2(dataset_all_entities)
+    #generate_figure_b2(dataset_all_entities)
     
     print("Generating Figure B3: Inventor mobility...")
-    generate_figure_b3(dataset_all_entities)
+    #generate_figure_b3(dataset_all_entities)
     
     print("Generating Table B3: Breakthrough regression...")
-    generate_table_b3(kpst_scores)
+    #generate_table_b3(kpst_scores)
     
     print("Generating Figure B4: Population-normalized breakthrough patents...")
-    generate_figure_b4(kpst_scores)
+    #generate_figure_b4(kpst_scores)
     
     print("Generating Figure B5: Reform analysis...")
     generate_figure_b5(kpst_scores)
     
     print("Generating Table B4: Overrepresented occupations...")
-    generate_table_b4(kpst_scores, entities_df)
+    #generate_table_b4(kpst_scores, entities_df)
     
     print("Done! All appendix content generated.")
+
+
+
 
 if __name__ == "__main__":
     main()
