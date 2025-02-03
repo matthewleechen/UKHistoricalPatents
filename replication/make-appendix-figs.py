@@ -720,31 +720,31 @@ def main():
     
     # generate content in order
     print("Generating Table B1: Patents per inventor...")
-    #generate_table_b1(entities_df)
+    generate_table_b1(entities_df)
     
     print("Generating Figure B1: Co-invention analysis...")
-    #generate_figure_b1(entities_df)
+    generate_figure_b1(entities_df)
     
     print("Generating Table B2: Distinctive words...")
-    #generate_table_b2(dataset_all_years, entities_df)
+    generate_table_b2(dataset_all_years, entities_df)
     
     print("Generating Figure B2: Communicated patents...")
-    #generate_figure_b2(dataset_all_entities)
+    generate_figure_b2(dataset_all_entities)
     
     print("Generating Figure B3: Inventor mobility...")
-    #generate_figure_b3(dataset_all_entities)
+    generate_figure_b3(dataset_all_entities)
     
     print("Generating Table B3: Breakthrough regression...")
-    #generate_table_b3(kpst_scores)
+    generate_table_b3(kpst_scores)
     
     print("Generating Figure B4: Population-normalized breakthrough patents...")
-    #generate_figure_b4(kpst_scores)
+    generate_figure_b4(kpst_scores)
     
     print("Generating Figure B5: Reform analysis...")
     generate_figure_b5(kpst_scores)
     
     print("Generating Table B4: Overrepresented occupations...")
-    #generate_table_b4(kpst_scores, entities_df)
+    generate_table_b4(kpst_scores, entities_df)
     
     print("Done! All appendix content generated.")
 
